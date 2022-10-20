@@ -9,6 +9,7 @@ const post = () => {
 
   const [post, setPost] = useState({ description: '' });
   const [user, loading] = useAuthState(auth);
+  const route = useRouter();
 
   // Submit post
   const submitPost = async (e) => {
@@ -22,6 +23,8 @@ const post = () => {
       avatar: user.photoURL,
       username: user.displayName
     });
+    setPost({ description: '' });
+    return route.push('/');
   };
 
   return (
