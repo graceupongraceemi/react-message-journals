@@ -18,7 +18,12 @@ const post = () => {
 
     // Rum checks for description
     if (!post.description) {
-      toast.error('Description Field empty');
+      toast.error('Description Field empty', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000
+      });
+
+      return;
     }
 
     // Make a new post
