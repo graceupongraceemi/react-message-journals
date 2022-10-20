@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 const post = () => {
   // Form state
@@ -14,6 +15,12 @@ const post = () => {
   // Submit post
   const submitPost = async (e) => {
     e.preventDefault();
+
+    // Rum checks for description
+    if (!post.description) {
+      toast.error('Description Field empty');
+    }
+
     // Make a new post
     const collectionRef = collection(db, 'posts');
     await addDoc(collectionRef, {
