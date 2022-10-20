@@ -20,7 +20,15 @@ const post = () => {
     if (!post.description) {
       toast.error('Description Field empty', {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 1000
+        autoClose: 1500
+      });
+
+      return;
+    }
+    if (post.description.length > 300) {
+      toast.error('Description too long', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500
       });
 
       return;
