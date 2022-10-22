@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import Message from '../components/message';
+import { BsTrash2Fill } from 'react-icons/bs';
+import { AiFillEdit } from 'react-icons/ai';
 
 const dashboard = () => {
   const route = useRouter();
@@ -33,10 +35,28 @@ const dashboard = () => {
       <h1>Your posts</h1>
       <div>
         {posts.map((post) => {
-          return <Message key={post.id} {...post} key={post.id}></Message>;
+          return (
+            <Message key={post.id} {...post} key={post.id}>
+              <div className='flex gap-4'>
+                <button className='text-pink-600 flex items-center justify-center gap-2 py-2 text-sm'>
+                  <BsTrash2Fill className='text-2xl' />
+                  Delete
+                </button>
+                <button className='text-teal-600 flex items-center justify-center gap-2 py-2 text-sm'>
+                  <AiFillEdit className='text-2xl' />
+                  Edit
+                </button>
+              </div>
+            </Message>
+          );
         })}
       </div>
-      <button onClick={() => auth.signOut()}>Sign Out</button>
+      <button
+        className='font-medium text-white bg-gray-400 py-2 px-4 my-6'
+        onClick={() => auth.signOut()}
+      >
+        Sign Out
+      </button>
     </div>
   );
 };
