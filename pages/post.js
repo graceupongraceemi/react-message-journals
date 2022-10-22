@@ -11,6 +11,7 @@ const post = () => {
   const [post, setPost] = useState({ description: '' });
   const [user, loading] = useAuthState(auth);
   const route = useRouter();
+  const updateData = route.query;
 
   // Submit post
   const submitPost = async (e) => {
@@ -46,6 +47,16 @@ const post = () => {
     setPost({ description: '' });
     return route.push('/');
   };
+
+  // Check our uder
+  const checkUser = async () => {
+    if (loading) return;
+    if (!user) route.push('/auth/login');
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, [user, loading]);
 
   return (
     <div className='my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto'>

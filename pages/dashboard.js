@@ -13,6 +13,7 @@ import {
 import Message from '../components/message';
 import { BsTrash2Fill } from 'react-icons/bs';
 import { AiFillEdit } from 'react-icons/ai';
+import Link from 'next/link';
 
 const dashboard = () => {
   const route = useRouter();
@@ -58,10 +59,12 @@ const dashboard = () => {
                   <BsTrash2Fill className='text-2xl' />
                   Delete
                 </button>
-                <button className='text-teal-600 flex items-center justify-center gap-2 py-2 text-sm'>
-                  <AiFillEdit className='text-2xl' />
-                  Edit
-                </button>
+                <Link href={{ pathname: '/post, query: post' }}>
+                  <button className='text-teal-600 flex items-center justify-center gap-2 py-2 text-sm'>
+                    <AiFillEdit className='text-2xl' />
+                    Edit
+                  </button>
+                </Link>
               </div>
             </Message>
           );
