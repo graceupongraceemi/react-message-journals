@@ -51,7 +51,10 @@ const dashboard = () => {
           return (
             <Message key={post.id} {...post} key={post.id}>
               <div className='flex gap-4'>
-                <button className='text-pink-600 flex items-center justify-center gap-2 py-2 text-sm'>
+                <button
+                  onClick={() => deletePost(post.id)}
+                  className='text-pink-600 flex items-center justify-center gap-2 py-2 text-sm'
+                >
                   <BsTrash2Fill className='text-2xl' />
                   Delete
                 </button>
