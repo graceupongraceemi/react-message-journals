@@ -2,7 +2,14 @@ import { auth, db } from '../utils/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  where
+} from 'firebase/firestore';
 import Message from '../components/message';
 import { BsTrash2Fill } from 'react-icons/bs';
 import { AiFillEdit } from 'react-icons/ai';
@@ -23,6 +30,12 @@ const dashboard = () => {
       setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     });
     return unsubscribe;
+  };
+
+  // Delete Post
+  const deletePost = async (id) => {
+    const docRef = doc(db, 'posts', id);
+    await deleteDoc(docRef);
   };
 
   // Get users data
