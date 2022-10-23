@@ -13,6 +13,16 @@ const Details = () => {
   return (
     <div>
       <Message {...routeData}></Message>
+      <div>
+        <div>
+          <input
+            onChange={(e) => setMessage(e.target.value)}
+            type='text'
+            value={message}
+            placeholder='Send a message 😀'
+          />
+        </div>
+      </div>
     </div>
   );
 };
