@@ -2,7 +2,12 @@ import { auth, db } from '../utils/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  updateDoc
+} from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
 const post = () => {
@@ -26,6 +31,7 @@ const post = () => {
 
       return;
     }
+
     if (post.description.length > 300) {
       toast.error('Description too long', {
         position: toast.POSITION.TOP_CENTER,
@@ -35,17 +41,28 @@ const post = () => {
       return;
     }
 
-    // Make a new post
-    const collectionRef = collection(db, 'posts');
-    await addDoc(collectionRef, {
-      ...post,
-      timestamp: serverTimestamp(),
-      user: user.uid,
-      avatar: user.photoURL,
-      username: user.displayName
-    });
-    setPost({ description: '' });
-    return route.push('/');
+    if (post?.hasOwnProperty('id')) {
+      const docRef = doc(db, 'posts', post.id);
+      const updatePost = { ...post, timestamp: serverTimestamp() };
+      await updateDoc(docRef, updatePost);
+      return route.push('/');
+    } else {
+      // Make a new post
+      const collectionRef = collection(db, 'posts');
+      await addDoc(collectionRef, {
+        ...post,
+        timestamp: serverTimestamp(),
+        user: user.uid,
+        avatar: user.photoURL,
+        username: user.displayName
+      });
+      setPost({ description: '' });
+      toast.success('Post has been made', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500
+      });
+      return route.push('/');
+    }
   };
 
   // Check our user
