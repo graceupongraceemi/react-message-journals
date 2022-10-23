@@ -11,7 +11,7 @@ const post = () => {
   const [post, setPost] = useState({ description: '' });
   const [user, loading] = useAuthState(auth);
   const route = useRouter();
-  const updateData = route.query;
+  const routeData = route.query;
 
   // Submit post
   const submitPost = async (e) => {
@@ -48,10 +48,13 @@ const post = () => {
     return route.push('/');
   };
 
-  // Check our uder
+  // Check our user
   const checkUser = async () => {
     if (loading) return;
     if (!user) route.push('/auth/login');
+    if (routeData.id) {
+      setPost({ description: routeData.description, id: routeData.id });
+    }
   };
 
   useEffect(() => {
@@ -61,8 +64,10 @@ const post = () => {
   return (
     <div className='my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto'>
       <form onSubmit={submitPost}>
-        <h1 className='text-2xl font-bold'>Create a new post</h1>
-        <div className='py-20'>
+        <h1 className='text-2xl font-bold'>
+          {post.hasOwnProperty('id') ? 'Edit your post' : 'Create a new post'}
+        </h1>
+        <div className='py-2'>
           <h3 className='text-lg font-medium py-2'>Description</h3>
           <textarea
             value={post.description}

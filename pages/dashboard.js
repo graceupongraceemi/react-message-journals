@@ -50,7 +50,7 @@ const dashboard = () => {
       <div>
         {posts.map((post) => {
           return (
-            <Message key={post.id} {...post} key={post.id}>
+            <Message {...post} key={post.id}>
               <div className='flex gap-4'>
                 <button
                   onClick={() => deletePost(post.id)}
@@ -59,7 +59,7 @@ const dashboard = () => {
                   <BsTrash2Fill className='text-2xl' />
                   Delete
                 </button>
-                <Link href={{ pathname: '/post, query: post' }}>
+                <Link href={{ pathname: '/post', query: post }}>
                   <button className='text-teal-600 flex items-center justify-center gap-2 py-2 text-sm'>
                     <AiFillEdit className='text-2xl' />
                     Edit
