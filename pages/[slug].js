@@ -13,14 +13,21 @@ const Details = () => {
   return (
     <div>
       <Message {...routeData}></Message>
-      <div>
-        <div>
+      <div className='my-4'>
+        <div className='flex'>
           <input
             onChange={(e) => setMessage(e.target.value)}
             type='text'
             value={message}
             placeholder='Send a message 😀'
+            className='bg-gray-800 w-full p-2 text-white text-sm'
           />
+          <button className='bg-cyan-500 text-white py-2 px-4 text-sm'>
+            Submit
+          </button>
+        </div>
+        <div className='py-6'>
+          <h2 className='font-bold'>Comments</h2>
         </div>
       </div>
     </div>
